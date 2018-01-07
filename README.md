@@ -71,8 +71,11 @@ Change `AppDelegate.swift`:
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    MyNavigator.shared.createWindow()
     self.window = MyNavigator.shared.window
-    MyNavigator.shared.navigate(to: .main)
+    
+    MyNavigator.shared.scene = .main
+    
     return true
 }
 ```
