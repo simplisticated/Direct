@@ -71,15 +71,42 @@ Change `AppDelegate.swift`:
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    DemoNavigator.shared
+    MyNavigator.shared
         .createWindow()
         .setScene(scene: .main)
-        
-    self.window = DemoNavigator.shared.window
     
     return true
 }
 ```
+
+Also, remove reference to window (`var window: UIWindow?`) from `AppDelegate` class.
+
+### Window
+
+With `Navigator` class you can create window in one line of code:
+
+```swift
+MyNavigator.shared.createWindow()
+```
+
+If you have a custom window class, it's possible to use it too:
+
+```swift
+MyNavigator.shared.createWindow(ofType: MyWindow.self)
+```
+
+It's recommended to use `createWindow()` method in `AppDelegate` (see example in (Preparations)[#preparations] section).
+
+Usually, Xcode creates `AppDelegate` class with a reference to `UIWindow` inside:
+
+```swift
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+}
+```
+
+With `Navigator` you don't need to keep this reference, so you can remove it from `AppDelegate` class. Use `Navigator.window` instead.
 
 ### Scenes
 
@@ -103,7 +130,9 @@ Switching between scenes is simple:
 MyNavigator.shared.setScene(newScene)
 ```
 
-### Manage navigation stack
+### Transitions
+
+Transition is an action that is performed with stack of navigation controller. For example, pushing, presenting, dismissing view controllers, etc. Below you can find list of examples how to manage navigation stack with `Direct` library.
 
 Push view controller:
 
@@ -142,6 +171,19 @@ Access to current navigation controller:
 
 ```swift
 let currentNavigationController = MyNavigator.shared.scene?.rootNavigationController
+```
+
+### Syntax
+
+`Navigator` supports call chains so you can write long expressions:
+
+```swift
+MyNavigator.shared
+    .createWindow()
+    .setScene(scene: .main)
+    .performTransition(.push(viewController: someViewController, animated: false))
+    .performTransition(.present(viewController: popupViewController, animated: true, completion: {
+    }))
 ```
 
 ## License
