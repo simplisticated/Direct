@@ -44,9 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigator.createWindow()
         self.window = navigator.window
         
-        // Переход к главному экрану
+        // Display main screen
         
-        navigator.scene = .main
+        navigator.setScene(scene: .main)
+        
+        self.window = DemoNavigator.shared.window
         
         // Return result
         
