@@ -30,68 +30,74 @@ open class Navigator {
     
     public fileprivate(set) var window: UIWindow?
     
-    fileprivate var _scene: Scene?
-    
-    public var scene: Scene? {
-        get {
-            return self._scene
-        }
-        set {
-            // Assertions
-            
-            assert(self.window != nil, "Window should be created before switching to scene")
-            assert(newValue != nil, "Scene should not be nil")
-            
-            // Save scene
-            
-            self._scene = newValue
-            
-            // Handle scene before appearance
-            
-            newValue!.eventHandlerSet?.willAppear?(self)
-            
-            // Update window
-            
-            self.window!.rootViewController = newValue!.rootNavigationController
-            
-            // Handle scene after appearance
-            
-            newValue!.eventHandlerSet?.didAppear?(self)
-        }
-    }
+    public fileprivate(set) var scene: Scene?
     
     // MARK: Public object methods
     
-    public func createWindow<Window : UIWindow>(ofType type: Window.Type) {
+    @discardableResult
+    public func createWindow<Window : UIWindow>(ofType type: Window.Type) -> Self {
+        // Initialize window
+        
         self.window = Window(frame: UIScreen.main.bounds)
         self.window!.backgroundColor = .white
         self.window!.makeKeyAndVisible()
+        
+        // Return current navigator instance to support call chains
+        
+        return self
     }
     
-    public func createWindow() {
+    @discardableResult
+    public func createWindow() -> Self {
+        // Create window with default `UIWindow` type
+        
         self.createWindow(ofType: UIWindow.self)
+        
+        // Return current navigator instance to support call chains
+        
+        return self
     }
     
-    public func performTransition(_ transition: Transition) {
+    @discardableResult
+    public func setScene(scene: Scene) -> Self {
+        // Assertions
+        
+        assert(self.window != nil, "Window should be created before switching to scene")
+        
+        // Save scene
+        
+        self.scene = scene
+        
+        // Handle scene before appearance
+        
+        scene.eventHandlerSet?.willAppear?(self)
+        
+        // Update window
+        
+        self.window!.rootViewController = scene.rootNavigationController
+        
+        // Handle scene after appearance
+        
+        scene.eventHandlerSet?.didAppear?(self)
+        
+        // Return current navigator instance to support call chains
+        
+        return self
+    }
+    
+    @discardableResult
+    public func performTransition(_ transition: Transition) -> Self {
+        // Obtain current navigation controller
+        
         guard let currentNavigationController = self.scene?.rootNavigationController else {
-            return
+            return self
         }
+        
+        // Handle transition
         
         switch transition {
         case .push(let viewController, let animated):
             currentNavigationController.pushViewController(viewController, animated: animated)
-            break
-        case .replaceTop(let replacement, let animated):
-            let indexOfTopViewController = currentNavigationController.viewControllers.count - 1
-            
-            guard indexOfTopViewController >= 0 else {
-                return
-            }
-            
-            var newViewControllersCollection = Array(currentNavigationController.viewControllers)
-            newViewControllersCollection[indexOfTopViewController] = replacement
-            
-            currentNavigationController.setViewControllers(newViewControllersCollection, animated: animated)
             break
         case .pop(let animated):
             currentNavigationController.popViewController(animated: animated)
@@ -109,7 +115,23 @@ open class Navigator {
                 completion?()
             })
             break
+        case .replaceTop(let replacement, let animated):
+            let indexOfTopViewController = currentNavigationController.viewControllers.count - 1
+            
+            guard indexOfTopViewController >= 0 else {
+                return self
+            }
+            
+            var newViewControllersCollection = Array(currentNavigationController.viewControllers)
+            newViewControllersCollection[indexOfTopViewController] = replacement
+            
+            currentNavigationController.setViewControllers(newViewControllersCollection, animated: animated)
+            break
         }
+        
+        // Return current navigator instance to support call chains
+        
+        return self
     }
     
     // MARK: Private object methods
