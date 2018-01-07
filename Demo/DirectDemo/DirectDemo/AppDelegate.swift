@@ -26,8 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: Object variables & properties
     
-    var window: UIWindow?
-    
     // MARK: Public object methods
     
     // MARK: Private object methods
@@ -35,22 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Protocol implementation
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Obtain navigator
-        
-        let navigator = DemoNavigator.shared
-        
-        // Create window
-        
-        navigator.createWindow()
-        self.window = navigator.window
-        
-        // Display main screen
-        
-        navigator.setScene(scene: .main)
-        
-        self.window = DemoNavigator.shared.window
-        
-        // Return result
+        DemoNavigator.shared
+            .createWindow()
+            .setScene(scene: .main)
         
         return true
     }
