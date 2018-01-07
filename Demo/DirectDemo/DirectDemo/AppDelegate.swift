@@ -35,13 +35,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Protocol implementation
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Создание окна и его первичная настройка
+        // Obtain navigator
         
-        self.window = DemoNavigator.shared.window
+        let navigator = DemoNavigator.shared
+        
+        // Create window
+        
+        navigator.createWindow()
+        self.window = navigator.window
         
         // Переход к главному экрану
         
-        DemoNavigator.shared.navigate(to: .main)
+        navigator.scene = .main
         
         // Return result
         
