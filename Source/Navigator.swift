@@ -19,9 +19,6 @@ open class Navigator {
     // MARK: Initializers
     
     public init() {
-        // Initialize window
-        
-        self.window = self.createWindow()
     }
     
     // MARK: Deinitializer
@@ -31,28 +28,48 @@ open class Navigator {
     
     // MARK: Object variables & properties
     
-    public fileprivate(set) var window: UIWindow!
+    public fileprivate(set) var window: UIWindow?
     
-    public fileprivate(set) var scene: Scene?
+    fileprivate var _scene: Scene?
+    
+    public var scene: Scene? {
+        get {
+            return self._scene
+        }
+        set {
+            // Assertions
+            
+            assert(self.window != nil, "Window should be created before switching to scene")
+            assert(newValue != nil, "Scene should not be nil")
+            
+            // Save scene
+            
+            self._scene = newValue
+            
+            // Handle scene before appearance
+            
+            newValue!.eventHandlerSet?.willAppear?(self)
+            
+            // Update window
+            
+            self.window!.rootViewController = newValue!.rootNavigationController
+            
+            // Handle scene after appearance
+            
+            newValue!.eventHandlerSet?.didAppear?(self)
+        }
+    }
     
     // MARK: Public object methods
     
-    public func navigate(to scene: Scene) {
-        // Handle scene before appearance
-        
-        scene.eventHandlerSet?.willAppear?(self)
-        
-        // Update window
-        
-        self.window.rootViewController = scene.rootNavigationController
-        
-        // Handle scene after appearance
-        
-        scene.eventHandlerSet?.didAppear?(self)
-        
-        // Save scene
-        
-        self.scene = scene
+    public func createWindow<Window : UIWindow>(ofType type: Window.Type) {
+        self.window = Window(frame: UIScreen.main.bounds)
+        self.window!.backgroundColor = .white
+        self.window!.makeKeyAndVisible()
+    }
+    
+    public func createWindow() {
+        self.createWindow(ofType: UIWindow.self)
     }
     
     public func performTransition(_ transition: Transition) {
@@ -96,13 +113,6 @@ open class Navigator {
     }
     
     // MARK: Private object methods
-    
-    fileprivate func createWindow() -> UIWindow {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = .white
-        window.makeKeyAndVisible()
-        return window
-    }
     
     // MARK: Protocol implementation
     
