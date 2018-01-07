@@ -73,7 +73,7 @@ Change `AppDelegate.swift`:
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     MyNavigator.shared
         .createWindow()
-        .setScene(scene: .main)
+        .setScene(.main)
     
     return true
 }
@@ -180,7 +180,7 @@ let currentNavigationController = MyNavigator.shared.scene?.rootNavigationContro
 ```swift
 MyNavigator.shared
     .createWindow()
-    .setScene(scene: .main)
+    .setScene(.main)
     .performTransition(.push(viewController: someViewController, animated: false))
     .performTransition(.present(viewController: popupViewController, animated: true, completion: {
     }))
