@@ -71,10 +71,11 @@ Change `AppDelegate.swift`:
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    MyNavigator.shared.createWindow()
-    self.window = MyNavigator.shared.window
-    
-    MyNavigator.shared.scene = .main
+    DemoNavigator.shared
+        .createWindow()
+        .setScene(scene: .main)
+        
+    self.window = DemoNavigator.shared.window
     
     return true
 }
@@ -99,7 +100,7 @@ It's highly recommended to create extension for `Scene` class and provide static
 Switching between scenes is simple:
 
 ```swift
-MyNavigator.shared.scene = newScene
+MyNavigator.shared.setScene(newScene)
 ```
 
 ### Manage navigation stack
