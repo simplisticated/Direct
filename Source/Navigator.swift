@@ -59,7 +59,7 @@ open class Navigator {
     }
     
     @discardableResult
-    public func setScene(scene: Scene) -> Self {
+    public func setScene(_ scene: Scene) -> Self {
         // Assertions
         
         assert(self.window != nil, "Window should be created before switching to scene")
