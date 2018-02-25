@@ -8,9 +8,13 @@
 
 import UIKit
 
-open class Navigator {
+public class Navigator {
     
     // MARK: Class variables & properties
+    
+    public static var shared = {
+        return Navigator()
+    }()
     
     // MARK: Public class methods
     
