@@ -39,18 +39,6 @@ or
 
 ### Preparations
 
-Create `Navigator` subclass:
-
-```swift
-class MyNavigator : Navigator {
-
-    static var shared = {
-        return MyNavigator()
-    }()
-
-}
-```
-
 Create extension for `Scene` class:
 
 ```swift
@@ -71,7 +59,7 @@ Change `AppDelegate.swift`:
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    MyNavigator.shared
+    Navigator.shared
         .createWindow()
         .setScene(.main)
     
@@ -86,13 +74,13 @@ Also, remove reference to window (`var window: UIWindow?`) from `AppDelegate` cl
 With `Navigator` class you can create window in one line of code:
 
 ```swift
-MyNavigator.shared.createWindow()
+Navigator.shared.createWindow()
 ```
 
 If you have a custom window class, it's possible to use it too:
 
 ```swift
-MyNavigator.shared.createWindow(ofType: MyWindow.self)
+Navigator.shared.createWindow(ofType: MyWindow.self)
 ```
 
 It's recommended to use `createWindow()` method in `AppDelegate` (see example in (Preparations)[#preparations] section).
@@ -110,7 +98,7 @@ With `Navigator` you don't need to keep this reference, so you can remove it fro
 
 ### Scenes
 
-Scene describes a foundation of navigation stack including root controller. Here's an example:
+Scene describes navigation stack including root controller. Here's an example:
 
 ```swift
 let navigationController = UINavigationController()
@@ -127,7 +115,7 @@ It's highly recommended to create extension for `Scene` class and provide static
 Switching between scenes is simple:
 
 ```swift
-MyNavigator.shared.setScene(newScene)
+Navigator.shared.setScene(newScene)
 ```
 
 ### Transitions
@@ -138,39 +126,41 @@ Push view controller:
 
 ```swift
 let someViewController = SomeViewController(nibName: "SomeViewController", bundle: nil)
-MyNavigator.shared.performTransition(.push(viewController: someViewController, animated: true))
+Navigator.shared.performTransition(.push(viewController: someViewController, animated: true))
 ```
 
 Pop:
 
 ```swift
-MyNavigator.shared.performTransition(.pop(animated: true))
+Navigator.shared.performTransition(.pop(animated: true))
 ```
 
 Pop to root view controller:
 
 ```swift
-MyNavigator.shared.performTransition(.popToRootViewController(animated: true))
+Navigator.shared.performTransition(.popToRootViewController(animated: true))
 ```
 
 Present:
 
 ```swift
-MyNavigator.shared.performTransition(.present(viewController: someViewController, animated: true, completion: {
+Navigator.shared.performTransition(.present(viewController: someViewController, animated: true, completion: {
 }))
 ```
 
 Dismiss:
 
 ```swift
-MyNavigator.shared.performTransition(.dismiss(animated: true, completion: {
+Navigator.shared.performTransition(.dismiss(animated: true, completion: {
 }))
 ```
 
 Access to current navigation controller:
 
 ```swift
-let currentNavigationController = MyNavigator.shared.scene?.rootNavigationController
+if let currentNavigationController = Navigator.shared.scene?.rootNavigationController {
+    // Do something with current navigation controller
+}
 ```
 
 ### Syntax
@@ -178,7 +168,7 @@ let currentNavigationController = MyNavigator.shared.scene?.rootNavigationContro
 `Navigator` supports call chains so you can write long expressions:
 
 ```swift
-MyNavigator.shared
+Navigator.shared
     .createWindow()
     .setScene(.main)
     .performTransition(.push(viewController: someViewController, animated: false))
