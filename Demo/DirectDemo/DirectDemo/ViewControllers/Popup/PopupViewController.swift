@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Direct
 
 class PopupViewController: UIViewController {
 
@@ -47,7 +48,7 @@ class PopupViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func backButtonDidTap(_ sender: Any) {
-        DemoNavigator.shared.performTransition(.pop(animated: true))
+        Navigator.shared.performTransition(.pop(animated: true))
     }
     
     // MARK: Protocol implementation

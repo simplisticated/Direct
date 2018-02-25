@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Direct
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Protocol implementation
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        DemoNavigator.shared
+        Navigator.shared
             .createWindow()
             .setScene(.main)
         

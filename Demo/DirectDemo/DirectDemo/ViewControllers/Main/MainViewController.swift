@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
     
     @IBAction func openButtonDidTap(_ sender: Any) {
         let popupViewController = PopupViewController(nibName: "PopupViewController", bundle: nil)
-        DemoNavigator.shared.performTransition(.push(viewController: popupViewController, animated: true))
+        Navigator.shared.performTransition(.push(viewController: popupViewController, animated: true))
     }
     
     // MARK: Protocol implementation
