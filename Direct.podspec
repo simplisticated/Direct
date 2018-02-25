@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "Direct"
-  s.version      = "1.2"
+  s.version      = "1.3"
   s.summary      = "Tools for transitions between screens in iOS app"
 
   # This description is used to generate tags and improve search results.
