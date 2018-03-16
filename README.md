@@ -83,7 +83,7 @@ If you have a custom window class, it's possible to use it too:
 Navigator.shared.createWindow(ofType: MyWindow.self)
 ```
 
-It's recommended to use `createWindow()` method in `AppDelegate` (see example in (Preparations)[#preparations] section).
+It's recommended to use `createWindow()` method in `AppDelegate` (see example in [Preparations](#preparations) section).
 
 Usually, Xcode creates `AppDelegate` class with a reference to `UIWindow` inside:
 
