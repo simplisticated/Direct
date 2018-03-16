@@ -110,7 +110,7 @@ navigationController.viewControllers = [
 let scene = Scene(rootNavigationController: navigationController)
 ```
 
-It's highly recommended to create extension for `Scene` class and provide static variables describing new scenes like we did in [Preparations](#preparations) section.
+It's highly recommended to create extension for `Scene` class and provide static variables describing new scenes like it's done in [Preparations](#preparations) section.
 
 Switching between scenes is simple:
 
@@ -120,7 +120,7 @@ Navigator.shared.setScene(newScene)
 
 ### Transitions
 
-Transition is an action that is performed with stack of navigation controller. For example, pushing, presenting, dismissing view controllers, etc. Below you can find list of examples how to manage navigation stack with `Direct` library.
+Transition is an action that is performed with stack of navigation controller, for example: pushing, presenting, dismissing view controllers, etc. Below you can find list of examples how to manage navigation stack with `Direct` library.
 
 Push view controller:
 
