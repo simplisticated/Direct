@@ -36,15 +36,27 @@ public class Navigator {
     
     public fileprivate(set) var scene: Scene?
     
+    public weak var delegate: NavigatorDelegate?
+    
     // MARK: Public object methods
     
     @discardableResult
     public func createWindow<Window : UIWindow>(ofType type: Window.Type) -> Self {
+        // Share event
+        
+        self.delegate?.navigator(self, willCreateWindowOfType: Window.self)
+        
         // Initialize window
         
-        self.window = Window(frame: UIScreen.main.bounds)
-        self.window!.backgroundColor = .white
-        self.window!.makeKeyAndVisible()
+        let window = Window(frame: UIScreen.main.bounds)
+        window.backgroundColor = .white
+        window.makeKeyAndVisible()
+        
+        self.window = window
+        
+        // Share event
+        
+        self.delegate?.navigator(self, didCreateWindow: window)
         
         // Return current navigator instance to support call chains
         
@@ -68,6 +80,10 @@ public class Navigator {
         
         assert(self.window != nil, "Window should be created before switching to scene")
         
+        // Share event
+        
+        self.delegate?.navigator(self, willChangeSceneTo: scene)
+        
         // Save scene
         
         self.scene = scene
@@ -84,6 +100,10 @@ public class Navigator {
         
         scene.eventHandlerSet?.didAppear?(self)
         
+        // Share event
+        
+        self.delegate?.navigator(self, didChangeSceneTo: scene)
+        
         // Return current navigator instance to support call chains
         
         return self
@@ -96,6 +116,10 @@ public class Navigator {
         guard let currentNavigationController = self.scene?.rootNavigationController else {
             return self
         }
+        
+        // Share event
+        
+        self.delegate?.navigator(self, willPerformTransition: transition)
         
         // Handle transition
         
@@ -132,6 +156,10 @@ public class Navigator {
             currentNavigationController.setViewControllers(newViewControllersCollection, animated: animated)
             break
         }
+        
+        // Share event
+        
+        self.delegate?.navigator(self, didPerformTransition: transition)
         
         // Return current navigator instance to support call chains
         

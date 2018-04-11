@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		695D37CB207DF6DA00485031 /* NavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695D37CA207DF6DA00485031 /* NavigatorDelegate.swift */; };
 		6967EF4F200043E2002E7D21 /* Direct.h in Headers */ = {isa = PBXBuildFile; fileRef = 6967EF4D200043E2002E7D21 /* Direct.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6967EF5D20004613002E7D21 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6967EF5C20004613002E7D21 /* Transition.swift */; };
 		6967EF5F20004664002E7D21 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6967EF5E20004664002E7D21 /* Scene.swift */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		695D37CA207DF6DA00485031 /* NavigatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorDelegate.swift; sourceTree = "<group>"; };
 		6967EF4A200043E2002E7D21 /* Direct.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Direct.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6967EF4D200043E2002E7D21 /* Direct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct.h; sourceTree = "<group>"; };
 		6967EF4E200043E2002E7D21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				6967EF6020004778002E7D21 /* Navigator.swift */,
+				695D37CA207DF6DA00485031 /* NavigatorDelegate.swift */,
 				6967EF5E20004664002E7D21 /* Scene.swift */,
 				6967EF5C20004613002E7D21 /* Transition.swift */,
 			);
@@ -150,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				695D37CB207DF6DA00485031 /* NavigatorDelegate.swift in Sources */,
 				6967EF5F20004664002E7D21 /* Scene.swift in Sources */,
 				6967EF5D20004613002E7D21 /* Transition.swift in Sources */,
 				6967EF6120004778002E7D21 /* Navigator.swift in Sources */,
