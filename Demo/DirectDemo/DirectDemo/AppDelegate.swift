@@ -10,7 +10,7 @@ import UIKit
 import Direct
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, NavigatorDelegate {
     
     // MARK: Class variables & properties
     
@@ -34,9 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Protocol implementation
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Navigator.shared
-            .createWindow()
-            .setScene(.main)
+        let navigator = Navigator.shared
+        navigator.delegate = self
+        navigator.createWindow()
+        navigator.setScene(.main)
         
         return true
     }
@@ -61,6 +62,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func navigator(_ navigator: Navigator, willCreateWindowOfType type: UIWindow.Type) {
+        print(#function)
+    }
+    
+    func navigator(_ navigator: Navigator, didCreateWindow window: UIWindow) {
+        print(#function)
+    }
+    
+    func navigator(_ navigator: Navigator, willChangeSceneTo newScene: Scene) {
+        print(#function)
+    }
+    
+    func navigator(_ navigator: Navigator, didChangeSceneTo newScene: Scene) {
+        print(#function)
+    }
+    
+    func navigator(_ navigator: Navigator, willPerformTransition transition: Transition) {
+        print(#function)
+    }
+    
+    func navigator(_ navigator: Navigator, didPerformTransition transition: Transition) {
+        print(#function)
     }
     
 }
