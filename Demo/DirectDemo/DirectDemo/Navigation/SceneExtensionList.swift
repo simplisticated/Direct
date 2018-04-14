@@ -16,7 +16,7 @@ extension Scene {
         navigationController.viewControllers = [
             MainViewController(nibName: "MainViewController", bundle: nil)
         ]
-        return Scene(rootNavigationController: navigationController)
+        return Scene(rootController: navigationController)
     }
     
 }
