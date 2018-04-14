@@ -19,12 +19,12 @@ open class Scene {
     // MARK: Initializers
     
     public init(
-        rootNavigationController: UINavigationController,
+        rootController: UINavigationController,
         eventHandlerSet: EventHandlerSet? = nil
     ) {
-        // Initialize root navigation controller
+        // Initialize root controller
         
-        self.rootNavigationController = rootNavigationController
+        self.rootController = rootController
         
         // Initialize event handler set
         
@@ -38,7 +38,7 @@ open class Scene {
     
     // MARK: Object variables & properties
     
-    public fileprivate(set) var rootNavigationController: UINavigationController!
+    public fileprivate(set) var rootController: UIViewController!
     
     public fileprivate(set) var eventHandlerSet: EventHandlerSet?
     
@@ -63,6 +63,22 @@ public extension Scene {
             self.didAppear = nil
         }
         
+    }
+    
+}
+
+public extension Scene {
+    
+    public var rootNavigationController: UINavigationController? {
+        get {
+            return self.rootController as? UINavigationController
+        }
+    }
+    
+    public var rootTabBarController: UITabBarController? {
+        get {
+            return self.rootController as? UITabBarController
+        }
     }
     
 }
