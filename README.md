@@ -49,7 +49,7 @@ extension Scene {
         navigationController.viewControllers = [
             MainViewController(nibName: "MainViewController", bundle: nil)
         ]
-        return Scene(rootNavigationController: navigationController)
+        return Scene(rootController: navigationController)
     }
     
 }
@@ -107,7 +107,7 @@ navigationController.viewControllers = [
     MyViewController(nibName: "MyViewController", bundle: nil)
 ]
 
-let scene = Scene(rootNavigationController: navigationController)
+let scene = Scene(rootController: navigationController)
 ```
 
 It's highly recommended to create extension for `Scene` class and provide static variables describing new scenes like it's done in [Preparations](#preparations) section.
