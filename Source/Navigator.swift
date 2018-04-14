@@ -94,7 +94,7 @@ public class Navigator {
         
         // Update window
         
-        self.window!.rootViewController = scene.rootNavigationController
+        self.window!.rootViewController = scene.rootController
         
         // Handle scene after appearance
         
@@ -113,7 +113,7 @@ public class Navigator {
     public func performTransition(_ transition: Transition) -> Self {
         // Obtain current navigation controller
         
-        guard let currentNavigationController = self.scene?.rootNavigationController else {
+        guard let navigationController = self.scene?.rootController as? UINavigationController else {
             return self
         }
         
@@ -125,35 +125,35 @@ public class Navigator {
         
         switch transition {
         case .push(let viewController, let animated):
-            currentNavigationController.pushViewController(viewController, animated: animated)
+            navigationController.pushViewController(viewController, animated: animated)
             break
         case .pop(let animated):
-            currentNavigationController.popViewController(animated: animated)
+            navigationController.popViewController(animated: animated)
             break
         case .popToRootViewController(let animated):
-            currentNavigationController.popToRootViewController(animated: animated)
+            navigationController.popToRootViewController(animated: animated)
             break
         case .present(let viewController, let animated, let completion):
-            currentNavigationController.present(viewController, animated: animated, completion: {
+            navigationController.present(viewController, animated: animated, completion: {
                 completion?()
             })
             break
         case .dismiss(let animated, let completion):
-            currentNavigationController.dismiss(animated: animated, completion: {
+            navigationController.dismiss(animated: animated, completion: {
                 completion?()
             })
             break
         case .replaceTop(let replacement, let animated):
-            let indexOfTopViewController = currentNavigationController.viewControllers.count - 1
+            let indexOfTopViewController = navigationController.viewControllers.count - 1
             
             guard indexOfTopViewController >= 0 else {
                 return self
             }
             
-            var newViewControllersCollection = Array(currentNavigationController.viewControllers)
+            var newViewControllersCollection = Array(navigationController.viewControllers)
             newViewControllersCollection[indexOfTopViewController] = replacement
             
-            currentNavigationController.setViewControllers(newViewControllersCollection, animated: animated)
+            navigationController.setViewControllers(newViewControllersCollection, animated: animated)
             break
         }
         
