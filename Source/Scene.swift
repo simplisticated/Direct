@@ -19,7 +19,7 @@ open class Scene {
     // MARK: Initializers
     
     public init(
-        rootController: UINavigationController,
+        rootController: UIViewController,
         eventHandlerSet: EventHandlerSet? = nil
     ) {
         // Initialize root controller
