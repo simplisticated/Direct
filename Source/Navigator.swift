@@ -110,16 +110,10 @@ public class Navigator {
     }
     
     @discardableResult
-    public func performTransition(_ transition: Transition) -> Self {
-        // Obtain current navigation controller
-        
-        guard let navigationController = self.scene?.rootController as? UINavigationController else {
-            return self
-        }
-        
+    public func performTransition(_ transition: Transition, using navigationController: UINavigationController) -> Self {
         // Share event
         
-        self.delegate?.navigator(self, willPerformTransition: transition)
+        self.delegate?.navigator(self, willPerformTransition: transition, usingNavigationController: navigationController)
         
         // Handle transition
         
@@ -159,7 +153,51 @@ public class Navigator {
         
         // Share event
         
-        self.delegate?.navigator(self, didPerformTransition: transition)
+        self.delegate?.navigator(self, didPerformTransition: transition, usingNavigationController: navigationController)
+        
+        // Return current navigator instance to support call chains
+        
+        return self
+    }
+    
+    @discardableResult
+    public func performTransition(_ transition: Transition) -> Self {
+        // Obtain root controller
+        
+        guard let rootController = self.scene?.rootController else {
+            return self
+        }
+        
+        // Obtain current navigation controller
+        
+        var navigationController: UINavigationController!
+        
+        switch rootController {
+        case is UINavigationController:
+            navigationController = rootController as! UINavigationController
+            break
+        case is UITabBarController:
+            let tabBarController = rootController as! UITabBarController
+            
+            guard let selectedViewController = tabBarController.viewControllers?[tabBarController.selectedIndex] else {
+                return self
+            }
+            
+            if selectedViewController is UINavigationController {
+                navigationController = selectedViewController as! UINavigationController
+            }
+            break
+        default:
+            break
+        }
+        
+        guard navigationController != nil else {
+            return self
+        }
+        
+        // Transition
+        
+        self.performTransition(transition, using: navigationController)
         
         // Return current navigator instance to support call chains
         
