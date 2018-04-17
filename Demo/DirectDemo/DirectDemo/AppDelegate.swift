@@ -80,11 +80,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NavigatorDelegate {
         print(#function)
     }
     
-    func navigator(_ navigator: Navigator, willPerformTransition transition: Transition) {
+    func navigator(_ navigator: Navigator, willPerformTransition transition: Transition, usingNavigationController navigationController: UINavigationController) {
         print(#function)
     }
     
-    func navigator(_ navigator: Navigator, didPerformTransition transition: Transition) {
+    func navigator(_ navigator: Navigator, didPerformTransition transition: Transition, usingNavigationController navigationController: UINavigationController) {
         print(#function)
     }
     
