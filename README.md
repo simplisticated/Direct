@@ -17,9 +17,9 @@
 	</a>
 </p>
 
-# Direct
+## At a Glance
 
-Simplifies transitions between screens in iOS app.
+`Direct` simplifies transitions between screens in iOS app.
 
 ## How To Get Started
 
